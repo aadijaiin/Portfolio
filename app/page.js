@@ -3,13 +3,7 @@ import React from "react";
 import { BackgroundLines } from "@/components/ui/background-lines";
 import { FlipWords } from "@/components/ui/flip-words";
 
-// import LinkPreviewcomp from "./components/LinkPreviewcomp";
-// import { LinkPreview } from "./components/ui/link-preview";
-// import {
-//   GlowingStarsBackgroundCard,
-//   GlowingStarsTitle,
-//   GlowingStarsDescription,
-// } from "./components/ui/glowing-stars";
+
 import StickyScrollcomp from "./components/StickyScrollcomp";
 import Navbar from "./components/Navbar";
 
