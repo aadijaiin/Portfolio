@@ -40,7 +40,7 @@ const Page = () => {
       <section id="About" >
         <StickyScrollcomp />
       </section>
-      <section id="projects" className="h-screen w-screen bg-black bg-grid-white/[0.12] flex justify-center items-center flex-wrap">
+      <section id="projects" className="min-h-screen w-screen bg-black bg-grid-white/[0.12] flex justify-center items-center flex-wrap">
 
       <CardHover />
 
