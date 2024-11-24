@@ -2,7 +2,7 @@
 import React from "react";
 import { BackgroundLines } from "@/components/ui/background-lines";
 import { FlipWords } from "@/components/ui/flip-words";
-
+import {CardHover} from "@/components/CardHover";
 import StickyScrollcomp from "./components/StickyScrollcomp";
 import Navbar from "./components/Navbar";
 
@@ -40,7 +40,9 @@ const Page = () => {
       <section id="About" >
         <StickyScrollcomp />
       </section>
-      <section id="projects" className="h-screen w-screen bg-black bg-grid-white/[0.12]">
+      <section id="projects" className="h-screen w-screen bg-black bg-grid-white/[0.12] flex justify-center items-center flex-wrap">
+
+      <CardHover />
 
       </section>
 
