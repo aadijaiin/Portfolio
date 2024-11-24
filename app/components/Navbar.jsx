@@ -47,7 +47,7 @@ const items = [
     },
     {
         name: 'Projects',
-        link: '#Projects',
+        link: '#projects',
         icon: <IconSettings />,
     },
    
