@@ -2,14 +2,14 @@
 import React from "react";
 import { BackgroundLines } from "@/components/ui/background-lines";
 import { FlipWords } from "@/components/ui/flip-words";
-import Meteorscomp from "@/components/Meteorscomp";
-import LinkPreviewcomp from "./components/LinkPreviewcomp";
-import { LinkPreview } from "./components/ui/link-preview";
-import {
-  GlowingStarsBackgroundCard,
-  GlowingStarsTitle,
-  GlowingStarsDescription,
-} from "./components/ui/glowing-stars";
+
+// import LinkPreviewcomp from "./components/LinkPreviewcomp";
+// import { LinkPreview } from "./components/ui/link-preview";
+// import {
+//   GlowingStarsBackgroundCard,
+//   GlowingStarsTitle,
+//   GlowingStarsDescription,
+// } from "./components/ui/glowing-stars";
 import StickyScrollcomp from "./components/StickyScrollcomp";
 import Navbar from "./components/Navbar";
 
@@ -39,18 +39,11 @@ const Page = () => {
       </section>
       
       {/* Section 2: About */}
-      <section id="About" className="min-h-screen">
+      <section id="About" >
         <StickyScrollcomp />
       </section>
 
-      {/* Section 3: Projects */}
-      <section
-        className="relative min-h-screen w-screen bg-black flex justify-center items-center "
-        id="Projects"
-      >
-        <Meteorscomp />
-        <LinkPreviewcomp />
-      </section>
+      
     </div>
   );
 };
