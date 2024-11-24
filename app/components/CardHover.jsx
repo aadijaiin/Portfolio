@@ -15,12 +15,7 @@ export const projects = [
         "A multinational technology company focusing on e-commerce, cloud computing, digital streaming, and artificial intelligence.",
       link: "https://chatbot-umber-delta.vercel.app/",
     },
-  {
-    title: "AI Chatbot",
-    description:
-      "A multinational technology company focusing on e-commerce, cloud computing, digital streaming, and artificial intelligence.",
-    link: "https://chatbot-umber-delta.vercel.app/",
-  },
+  
   {
     title: "Todo App",
     description:
