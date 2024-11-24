@@ -20,7 +20,7 @@ const Page = () => {
         >
           <div className="text-center mb-8">
             <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold bg-clip-text text-transparent bg-gradient-to-b from-neutral-50 to-neutral-400">
-              Hello World!, I'm
+              Hello World!, I am
             </h1>
             <h1 className="text-4xl font-bold text-transparent bg-clip-text bg-gradient-to-b from-neutral-50 to-neutral-400 w-full mt-4 drop-shadow-lg">
               <FlipWords words={["Aadi Jain", "A Developer"]} duration={2000} />
