@@ -5,6 +5,9 @@ import { FlipWords } from "@/components/ui/flip-words";
 import {CardHover} from "@/components/CardHover";
 import StickyScrollcomp from "./components/StickyScrollcomp";
 import Navbar from "./components/Navbar";
+import Bgbox from "./components/Bgbox";
+import { BackgroundBeamsWithCollision } from "@/components/ui/background-beams-with-collision";
+import FavoriteSong from "@/components/FavoriteSong";
 
 
 
@@ -45,7 +48,12 @@ const Page = () => {
       <CardHover />
 
       </section>
+    {/* <Bgbox /> */}
+    <BackgroundBeamsWithCollision>
 
+      <FavoriteSong />
+      
+    </ BackgroundBeamsWithCollision >
       
       
 
