@@ -5,7 +5,7 @@ const FavoriteSong = () => {
     <div className="flex flex-col items-center">
       <div>
         <h2 className="text-4xl bg-clip-text bg-no-repeat text-transparent bg-gradient-to-r py-4 from-purple-500 via-violet-500 to-pink-500 font-bold [text-shadow:0_0_rgba(0,0,0,0.1)] mb-14 text-center">
-          ✨ Today's Vibes ✨
+          ✨ Vibe These Days ✨
         </h2>
       </div>
       <div className="favorite-song-section flex flex-wrap justify-center gap-8">
