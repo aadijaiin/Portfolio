@@ -2,48 +2,48 @@ import { HoverEffect } from "@/components/ui/card-hover-effect";
 
 export function CardHover() {
   return (
-    (<div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+    <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
       <HoverEffect items={projects} />
-    </div>)
+    </div>
   );
 }
 
 export const projects = [
-    {
-      title: "AI Chatbot",
-      description:
-        "A multinational technology company focusing on e-commerce, cloud computing, digital streaming, and artificial intelligence.",
-      link: "https://chatbot-umber-delta.vercel.app/",
-    },
-  
+  {
+    title: "AI Chatbot",
+    description:
+      "AI Chatbot: An interactive tool that provides information or companionship using Gemini technology, designed for seamless communication and assistance.",
+    link: "https://chatbot-umber-delta.vercel.app/",
+  },
+
   {
     title: "Todo App",
     description:
-      "A technology company that builds economic infrastructure for the internet.",
+      "Todo App: A task management app that helps users organize tasks, track progress, and stay on top of daily responsibilities with ease.",
     link: "https://todo-app-code.vercel.app/",
   },
   {
     title: "Weather App",
     description:
-      "A streaming service that offers a wide variety of award-winning TV shows, movies, anime, documentaries, and more on thousands of internet-connected devices.",
+      "Weather App: A platform to check weather forecasts, track favorite locations, and receive timely updates to plan daily activities more efficiently.",
     link: "https://aadijaiin.github.io/Weather-app/",
   },
   {
     title: "Password Generator",
     description:
-      "A multinational technology company that specializes in Internet-related services and products.",
+      "Password Generator: A tool to create strong, random passwords with customizable security options, ensuring user data protection and privacy online.",
     link: "https://aadijaiin.github.io/PasswordGeneratorUsingReact/",
   },
   {
     title: "Portfolio",
     description:
-      "A technology company that focuses on building products that advance Facebook's mission of bringing the world closer together.",
+      "Portfolio: A collection of projects showcasing innovative products aimed at enhancing communication, technology, and user experience through creative solutions.",
     link: "https://portfolio-aadi-jains-projects.vercel.app/",
   },
   {
     title: "Foodoscope",
     description:
-      "A multinational technology company that develops, manufactures, licenses, supports, and sells computer software, consumer electronics, personal computers, and related services.",
+      "Foodoscope: A nutrition analysis and recipe-finding platform that helps users discover healthy recipes and track nutritional information for better meal planning.",
     link: "https://fork-it-foodoscope.vercel.app/",
   },
 ];
