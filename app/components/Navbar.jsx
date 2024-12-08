@@ -6,6 +6,7 @@ import {
     IconSettings,
     IconSearch,
     IconUser,
+    IconMusic,
     
   } from "@tabler/icons-react";
 
@@ -49,6 +50,11 @@ const items = [
         name: 'Projects',
         link: '#projects',
         icon: <IconSettings />,
+    },
+    {
+        name: 'Vibe',
+        link: '#vibe',
+        icon: <IconMusic />,
     },
    
 ]

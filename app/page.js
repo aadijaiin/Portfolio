@@ -49,12 +49,13 @@ const Page = () => {
 
       </section>
     {/* <Bgbox /> */}
-    <BackgroundBeamsWithCollision>
+    <section id='vibe'>
+    <BackgroundBeamsWithCollision >
 
       <FavoriteSong />
       
     </ BackgroundBeamsWithCollision >
-      
+    </section>
       
 
       
