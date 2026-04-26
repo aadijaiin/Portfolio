@@ -1,0 +1,163 @@
+import { useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react';
+import classNames from 'classnames';
+import octopusSrc from '../../assets/images/octopus.svg';
+
+const TILE_SIZE = 60;
+
+const useScreenSize = () => {
+  const [screenSize, setScreenSize] = useState({
+    width: typeof window !== 'undefined' ? window.innerWidth : 1024,
+    height: typeof window !== 'undefined' ? window.innerHeight : 768,
+  });
+
+  useEffect(() => {
+    let timeoutId: any = null;
+    const handleResize = () => {
+      if (timeoutId) clearTimeout(timeoutId);
+      timeoutId = setTimeout(() => {
+        setScreenSize({ width: window.innerWidth, height: window.innerHeight });
+      }, 100);
+    };
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
+  return screenSize;
+};
+
+const useScreenTiles = (tileSize: number, extraY = 0) => {
+  const { width: w, height: h } = useScreenSize();
+  const [nX, setNX] = useState<number>(Math.ceil(w / tileSize));
+  const [nY, setNY] = useState<number>(Math.ceil(h / tileSize) + extraY);
+
+  useLayoutEffect(() => {
+    setNX(Math.ceil(w / tileSize));
+    setNY(Math.ceil(h / tileSize) + extraY);
+  }, [extraY, h, tileSize, w]);
+
+  return { nX, nY };
+};
+
+const createArray = (length: number) => Array.from({ length }, (_, k) => k);
+
+interface CoverScreenProps {
+  onDone?: () => void;
+}
+
+export default function CoverScreen({ onDone }: CoverScreenProps) {
+  const { nX, nY } = useScreenTiles(TILE_SIZE);
+  const [rows, setRows] = useState<number[]>();
+  const [cols, setCols] = useState<number[]>();
+  const [hiddenKeys, setHiddenKeys] = useState<Record<string, boolean>>({});
+  const [isEntering, setIsEntering] = useState(false);
+  const touchStartY = useRef<number | null>(null);
+
+  useLayoutEffect(() => {
+    setRows(createArray(nY));
+    setCols(createArray(nX));
+    document.body.style.overflow = 'hidden';
+    return () => {
+      document.body.style.overflow = 'auto';
+    };
+  }, [nX, nY]);
+
+  const hideTile = useCallback((key: string) => {
+    setHiddenKeys((v) => ({ ...v, [key]: true }));
+  }, []);
+
+  const handleEnter = () => {
+    setIsEntering(true);
+    setTimeout(() => {
+      onDone?.();
+    }, 1000);
+  };
+
+  const handleTouchStart = (e: React.TouchEvent) => {
+    touchStartY.current = e.touches[0].clientY;
+  };
+
+  const handleTouchEnd = (e: React.TouchEvent) => {
+    if (touchStartY.current === null) return;
+    const deltaY = touchStartY.current - e.changedTouches[0].clientY;
+    if (Math.abs(deltaY) > 30 && !isEntering) {
+      handleEnter();
+    }
+    touchStartY.current = null;
+  };
+
+  const starDelays = useMemo(() => {
+    if (!rows || !cols) return {};
+    const delays: Record<string, string> = {};
+    rows.forEach(r => {
+      cols.forEach(c => {
+        delays[`${r}.${c}`] = `${Math.random() * 5}s`;
+      });
+    });
+    return delays;
+  }, [rows, cols]);
+
+  const tiles = useMemo(() => {
+    if (!rows || !cols) return null;
+    return rows.map((row) => (
+      <div key={row} className="flex flex-nowrap h-[60px]">
+        {cols.map((col) => {
+          const key = `${row}.${col}`;
+          const isHidden = hiddenKeys[key];
+          return (
+            <div
+              key={key}
+              onMouseEnter={() => hideTile(key)}
+              onTouchMove={(e) => {
+                const touch = e.touches[0];
+                const el = document.elementFromPoint(touch.clientX, touch.clientY);
+                const tileKey = el?.getAttribute('data-key');
+                if (tileKey) hideTile(tileKey);
+              }}
+              data-key={key}
+              className={classNames(
+                "w-[60px] min-w-[60px] h-[60px] transition-all duration-700 ease-out handcrafted-sky-tiles",
+                isHidden ? "opacity-0 pointer-events-none scale-0" : "opacity-100"
+              )}
+              style={{ animationDelay: starDelays[key] }}
+            />
+          );
+        })}
+      </div>
+    ));
+  }, [cols, hiddenKeys, hideTile, rows, starDelays]);
+
+  const scratchedCount = Object.keys(hiddenKeys).length;
+  const totalTiles = nX * nY;
+  const scratchRatio = totalTiles > 0 ? scratchedCount / totalTiles : 0;
+  const contentOpacity = Math.max(0, 1 - (scratchRatio * 5));
+
+  return (
+    <div
+      className={classNames(
+        "fixed inset-0 z-100 transition-opacity duration-1000 bg-transparent",
+        isEntering ? "opacity-0 pointer-events-none" : "opacity-100"
+      )}
+      onClick={handleEnter}
+      onTouchStart={handleTouchStart}
+      onTouchEnd={handleTouchEnd}
+    >
+      <div className="absolute inset-0 z-10 select-none overflow-hidden">{tiles}</div>
+      <div
+        className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-30 flex flex-col items-center justify-center pointer-events-none w-full"
+        style={{ opacity: contentOpacity, transition: 'opacity 0.4s ease-out' }}
+      >
+        <h1 className="text-[16vw] md:text-[13rem] font-bold text-white leading-none tracking-tighter flex items-center justify-center select-none whitespace-nowrap relative">
+          Welcome
+          <img
+            src={octopusSrc}
+            alt="octopus"
+            className="absolute right-[-25%] md:right-[-20%] top-0 md:top-[10%] w-[30vw] md:w-75 animate-float-slow drop-shadow-[0_10px_20px_rgba(0,0,0,0.5)] z-40"
+          />
+        </h1>
+        <p className="mt-8 md:mt-16 text-white font-medium tracking-[0.3em] md:tracking-[0.5em] uppercase text-[10px] md:text-sm">
+          Scratch or tap anywhere to explore
+        </p>
+      </div>
+    </div>
+  );
+}
