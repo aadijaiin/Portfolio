@@ -6,7 +6,6 @@
   "scripts": {
     "dev": "vite",
     "fetch:repos": "bun run scripts/fetchRepos.ts",
-    "prebuild": "bun run fetch:repos",
     "build": "tsc -b && vite build",
     "lint": "eslint .",
     "preview": "vite preview"
