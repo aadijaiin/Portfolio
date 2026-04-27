@@ -4,6 +4,7 @@ import type { GitHubRepo } from "../../types/github";
 import repos from "../../data/repos.json";
 
 const REPO_ORDER = [
+  "terraform-visualizer",
   "subnet",
   "zenvoy",
   "chalo",
