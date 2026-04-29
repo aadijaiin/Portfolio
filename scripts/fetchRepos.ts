@@ -109,15 +109,53 @@ async function fetchRepos() {
   return enriched;
 }
 
-async function main() {
-  const repos = await fetchRepos();
-
-  fs.writeFileSync(
-    "./src/data/repos.json",
-    JSON.stringify(repos, null, 2)
+async function fetchUser(token: string) {
+  const res = await fetch(
+    `https://api.github.com/users/${GITHUB_USERNAME}`,
+    {
+      headers: {
+        Authorization: `Bearer ${token}`,
+        Accept: "application/vnd.github+json",
+      },
+    }
   );
 
-  console.log("✅ repos with README descriptions updated");
+  if (!res.ok) {
+    throw new Error("Failed to fetch user");
+  }
+
+  const data = await res.json();
+
+  const createdYear = new Date(data.created_at).getFullYear();
+  const currentYear = new Date().getFullYear();
+
+  return {
+    avatar: data.avatar_url,
+    years: Math.max(currentYear - createdYear, 1),
+    projects: data.public_repos,
+  };
+}
+
+async function main() {
+  const token = process.env.PAT_GITHUB!;
+
+  const [repos, user] = await Promise.all([
+    fetchRepos(),
+    fetchUser(token),
+  ]);
+
+  const output = {
+    user,
+    repos,
+    updatedAt: new Date().toISOString(),
+  };
+
+  fs.writeFileSync(
+    "./src/data/github.json",
+    JSON.stringify(output, null, 2)
+  );
+
+  console.log("✅ GitHub data updated");
 }
 
 main();

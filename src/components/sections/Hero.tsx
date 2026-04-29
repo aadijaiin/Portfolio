@@ -1,11 +1,9 @@
 import { useEffect, useRef, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faGithub,
-  faLinkedin,
-} from "@fortawesome/free-brands-svg-icons";
+import { faGithub, faLinkedin } from "@fortawesome/free-brands-svg-icons";
 import jellyfishImg from "../../assets/images/jellyfish.svg";
 import MusicPlayer from "../ui/MusicPlayer";
+import data from "../../../src/data/github.json";
 
 const MonkeytypeIcon = ({ className = "w-5 h-5" }) => (
   <svg
@@ -109,29 +107,15 @@ function DraggableImage() {
 }
 
 export default function Hero() {
-  const [stats, setStats] = useState({
-  years: 0,
-  projects: 0,
+  const { user } = data;
+
+const [stats, setStats] = useState({
+  years: user.years,
+  projects: user.projects,
   leetcode: 0,
 });
 
   useEffect(() => {
-  fetch("https://api.github.com/users/aadijaiin")
-    .then((res) => res.json())
-    .then((data) => {
-      const createdYear = new Date(data.created_at).getFullYear();
-      const currentYear = new Date().getFullYear();
-
-      setStats((prev) => ({
-        ...prev,
-        years: currentYear - createdYear || 3,
-        projects: data.public_repos || 1,
-      }));
-    })
-    .catch(() =>
-      setStats((prev) => ({ ...prev, years: 3, projects: 1 }))
-    );
-
   fetch("https://leetcode-api-faisalshohag.vercel.app/Aadijain")
     .then((res) => res.json())
     .then((data) => {
@@ -144,20 +128,6 @@ export default function Hero() {
       setStats((prev) => ({ ...prev, leetcode: 0 }))
     );
 }, []);
-
-  // useEffect(() => {
-  //   fetch("https://api.github.com/users/aadijaiin")
-  //     .then((res) => res.json())
-  //     .then((data) => {
-  //       const createdYear = new Date(data.created_at).getFullYear();
-  //       const currentYear = new Date().getFullYear();
-  //       setStats({
-  //         years: currentYear - createdYear || 3,
-  //         projects: data.public_repos || 1,
-  //       });
-  //     })
-  //     .catch(() => setStats({ years: 3, projects: 1 }));
-  // }, []);
 
   return (
     <div className="min-h-screen bg-[#020c1b] text-white pt-20 pb-20 overflow-hidden relative">
@@ -181,7 +151,8 @@ export default function Hero() {
             </div>
 
             <p className="text-cyan-100/50 text-center font-medium text-base sm:text-lg leading-relaxed mb-4">
-              Exploring and building across web, mobile, and cloud focusing on systems that scale.
+              Exploring and building across web, mobile, and cloud focusing on
+              systems that scale.
             </p>
 
             <div className="mb-12">
@@ -237,8 +208,9 @@ export default function Hero() {
 
             <div className="flex flex-col md:flex-row items-center gap-8 mb-16 relative">
               <p className="text-cyan-100/30 text-lg sm:text-xl max-w-5xl font-medium leading-relaxed">
-                I work across the stack, from frontend interfaces to backend systems and cloud infrastructure, 
-with an emphasis on clean code and practical performance.
+                I work across the stack, from frontend interfaces to backend
+                systems and cloud infrastructure, with an emphasis on clean code
+                and practical performance.
               </p>
               <div className="shrink-0 w-16 h-16 sm:w-28 sm:h-28 opacity-40 animate-float-slow pointer-events-none">
                 <img
@@ -252,7 +224,7 @@ with an emphasis on clean code and practical performance.
             <div className="flex flex-row gap-8 sm:gap-20 items-center relative">
               <div className="relative z-10 group">
                 <div className="text-4xl sm:text-7xl font-black text-white mb-3 tabular-nums drop-shadow-lg">
-                  {stats.years}+
+                  {stats.years - 2}+
                 </div>
                 <div className="text-cyan-500/40 text-[10px] sm:text-sm tracking-[0.2em] uppercase font-bold">
                   YEARS OF
@@ -270,15 +242,15 @@ with an emphasis on clean code and practical performance.
                   </div>
                 </div>
               </div>
-                  <div className="relative z-10 group">
-                    <div className="text-4xl sm:text-7xl font-black text-white mb-3 tabular-nums drop-shadow-lg">
-                      {stats.leetcode}+
-                    </div>
-                    <div className="text-cyan-500/40 text-[10px] sm:text-sm tracking-[0.2em] uppercase font-bold">
-                      LEETCODE
-                      <br className="hidden sm:block" /> PROBLEMS
-                    </div>
-                  </div>
+              <div className="relative z-10 group">
+                <div className="text-4xl sm:text-7xl font-black text-white mb-3 tabular-nums drop-shadow-lg">
+                  {stats.leetcode}+
+                </div>
+                <div className="text-cyan-500/40 text-[10px] sm:text-sm tracking-[0.2em] uppercase font-bold">
+                  LEETCODE
+                  <br className="hidden sm:block" /> PROBLEMS
+                </div>
+              </div>
             </div>
           </div>
         </div>
