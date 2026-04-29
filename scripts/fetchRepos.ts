@@ -67,7 +67,7 @@ async function fetchReadme(repo: string, token: string) {
 }
 
 async function fetchRepos() {
-  const token = process.env.GITHUB_TOKEN;
+  const token = process.env.PAT_GITHUB;
 
   const res = await fetch(
     `https://api.github.com/users/${GITHUB_USERNAME}/repos?per_page=100&sort=pushed&direction=desc`,
