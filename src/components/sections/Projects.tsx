@@ -1,7 +1,7 @@
 import { Github, ArrowUpRight } from "lucide-react";
 import { useMemo } from "react";
 import type { GitHubRepo } from "../../types/github";
-import repos from "../../data/repos.json";
+import { repos } from "../../data/github.json";
 
 const REPO_ORDER = [
   "terraform-visualizer",
@@ -17,9 +17,9 @@ const REPO_ORDER = [
 
 export default function Projects() {
   const orderedRepos = useMemo(() => {
-    return REPO_ORDER
-      .map((name) => repos.find((r) => r.name === name))
-      .filter(Boolean) as GitHubRepo[];
+    return REPO_ORDER.map((name) => repos.find((r) => r.name === name)).filter(
+      Boolean,
+    ) as GitHubRepo[];
   }, []);
 
   return (
@@ -46,12 +46,7 @@ export default function Projects() {
 
         <div className="space-y-0">
           {orderedRepos.map((repo, i) => (
-            <ProjectCard
-              key={repo.id}
-              repo={repo}
-              index={i}
-              id={`repo-${i}`}
-            />
+            <ProjectCard key={repo.id} repo={repo} index={i} id={`repo-${i}`} />
           ))}
         </div>
 
