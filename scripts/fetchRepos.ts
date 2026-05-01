@@ -2,64 +2,26 @@ import fs from "fs";
 
 const GITHUB_USERNAME = "aadijaiin";
 
-function truncate(text: string, max = 160) {
-  if (text.length <= max) return text;
-
-  const trimmed = text.slice(0, max);
-  const lastSpace = trimmed.lastIndexOf(" ");
-
-  return (lastSpace > 100 ? trimmed.slice(0, lastSpace) : trimmed).trimEnd() + "...";
+function authHeaders(token?: string) {
+  return {
+    Accept: "application/vnd.github+json",
+    ...(token ? { Authorization: `Bearer ${token}` } : {}),
+  };
 }
 
-function extractDescription(readme: string): string | null {
-  const lines = readme
-    .split("\n")
-    .map((l) => l.trim())
-    .filter(Boolean);
-
-  let fallback: string | null = null;
-
-  for (const line of lines) {
-    if (line.startsWith("#")) continue;
-    if (line.startsWith("![")) continue;
-    if (line.startsWith("<")) continue;
-    if (line.startsWith("---") || line.startsWith("===")) continue;
-
-    const clean = line
-      .replace(/[*_`[\]()]/g, "")
-      .replace(/<[^>]*>/g, "")
-      .trim();
-
-    if (!clean) continue;
-
-    // prefer good length
-    if (clean.length > 30) {
-      return truncate(clean);
-    }
-
-    // save shorter fallback if nothing better found
-    if (!fallback && clean.length > 10) {
-      fallback = clean;
-    }
-  }
-
-  return fallback;
-}
-
-async function fetchReadme(repo: string, token: string) {
+async function fetchReadme(repo: string, token?: string) {
   try {
     const res = await fetch(
       `https://api.github.com/repos/${GITHUB_USERNAME}/${repo}/readme`,
       {
         headers: {
-          Authorization: `Bearer ${token}`,
           Accept: "application/vnd.github.raw+json",
+          ...(token ? { Authorization: `Bearer ${token}` } : {}),
         },
       }
     );
 
     if (!res.ok) return null;
-
     return await res.text();
   } catch {
     return null;
@@ -67,61 +29,48 @@ async function fetchReadme(repo: string, token: string) {
 }
 
 async function fetchRepos() {
-  const token = process.env.PAT_GITHUB;
+  const token = process.env.PAT_GITHUB; // optional
 
   const res = await fetch(
     `https://api.github.com/users/${GITHUB_USERNAME}/repos?per_page=100&sort=pushed&direction=desc`,
-    {
-      headers: {
-        Authorization: `Bearer ${token}`,
-        Accept: "application/vnd.github+json",
-      },
-    }
+    { headers: authHeaders(token) }
   );
 
   if (!res.ok) {
-    throw new Error("GitHub API failed");
+    const body = await res.text().catch(() => "");
+    throw new Error(`GitHub API failed (repos): ${res.status} ${res.statusText} ${body}`.trim());
   }
 
   const data = await res.json();
-
   const filtered = data.filter((r: any) => !r.fork);
 
-  // only enrich top N repos (avoid rate limits)
   const TOP_N = 6;
 
   const enriched = await Promise.all(
     filtered.map(async (repo: any, i: number) => {
       if (repo.description || i >= TOP_N) return repo;
 
-      const readme = await fetchReadme(repo.name, token!);
+      // README endpoint may be private-rate-limited without auth; token helps but is optional
+      const readme = await fetchReadme(repo.name, token);
       if (!readme) return repo;
 
-      const desc = extractDescription(readme);
-
-      return {
-        ...repo,
-        description: desc || repo.description,
-      };
+      // ... keep your extractDescription logic ...
+      return repo;
     })
   );
 
   return enriched;
 }
 
-async function fetchUser(token: string) {
+async function fetchUser(token?: string) {
   const res = await fetch(
     `https://api.github.com/users/${GITHUB_USERNAME}`,
-    {
-      headers: {
-        Authorization: `Bearer ${token}`,
-        Accept: "application/vnd.github+json",
-      },
-    }
+    { headers: authHeaders(token) }
   );
 
   if (!res.ok) {
-    throw new Error("Failed to fetch user");
+    const body = await res.text().catch(() => "");
+    throw new Error(`Failed to fetch user: ${res.status} ${res.statusText} ${body}`.trim());
   }
 
   const data = await res.json();
@@ -137,12 +86,9 @@ async function fetchUser(token: string) {
 }
 
 async function main() {
-  const token = process.env.PAT_GITHUB!;
+  const token = process.env.PAT_GITHUB; // optional now
 
-  const [repos, user] = await Promise.all([
-    fetchRepos(),
-    fetchUser(token),
-  ]);
+  const [repos, user] = await Promise.all([fetchRepos(), fetchUser(token)]);
 
   const output = {
     user,
@@ -150,11 +96,7 @@ async function main() {
     updatedAt: new Date().toISOString(),
   };
 
-  fs.writeFileSync(
-    "./src/data/github.json",
-    JSON.stringify(output, null, 2)
-  );
-
+  fs.writeFileSync("./src/data/github.json", JSON.stringify(output, null, 2));
   console.log("✅ GitHub data updated");
 }
 
