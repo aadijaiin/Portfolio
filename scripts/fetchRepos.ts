@@ -100,4 +100,4 @@ async function main() {
   console.log("✅ GitHub data updated");
 }
 
-main();
+main(); 
