@@ -4,7 +4,7 @@ A modern, immersive single-page portfolio built with React 19 and
 TypeScript. Features a scratchable welcome screen, lofi music player,
 parallax scrolling, and smooth animations throughout.
 
-**Live:** your-live-site-link-here \| **GitHub:**
+**Live:** https://aadijain.dev/ \| **GitHub:**
 https://github.com/aadijaiin
 
 ------------------------------------------------------------------------
