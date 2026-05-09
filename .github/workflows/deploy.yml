@@ -27,10 +27,17 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.PAT_GITHUB }}
 
-      - name: Commit changes
+      - name: Commit and push changes
         run: |
           git config --global user.name "bot"
           git config --global user.email "bot@users.noreply.github.com"
+
           git add src/data/github.json
-          git commit -m "chore: update repos" || echo "No changes"
+
+          git diff --cached --quiet && exit 0
+
+          git commit -m "chore: update repos"
+
+          git pull --rebase origin main
+
           git push
