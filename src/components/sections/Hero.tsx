@@ -5,11 +5,12 @@ import jellyfishImg from "../../assets/images/jellyfish.svg";
 import MusicPlayer from "../ui/MusicPlayer";
 import data from "../../../src/data/github.json";
 
-const MonkeytypeIcon = ({ className = "w-5 h-5" }) => (
+const MonkeytypeIcon = ({ className = "w-5 h-5", "aria-hidden": ariaHidden }: { className?: string, "aria-hidden"?: boolean | "true" | "false" }) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     viewBox="-680 -1030 300 180"
     className={className + " fill-current"}
+    aria-hidden={ariaHidden}
   >
     <g>
       <path d="M -430 -910 C -424.481 -910 -420 -905.519 -420 -900 C -420 -894.481 -424.481 -890 -430 -890 C -435.519 -890 -440 -894.481 -440 -900 C -440 -905.519 -435.519 -910 -430 -910 Z" />
@@ -164,31 +165,36 @@ const [stats, setStats] = useState({
                 href="https://github.com/aadijaiin"
                 target="_blank"
                 rel="noreferrer"
-                className="w-10 h-10 sm:w-12 sm:h-12 rounded-2xl bg-white/5 border border-white/10 text-cyan-400 flex items-center justify-center hover:bg-cyan-400 hover:text-white hover:-translate-y-1 transition-all duration-300"
+                aria-label="GitHub Profile"
+                className="w-10 h-10 sm:w-12 sm:h-12 rounded-2xl bg-white/5 border border-white/10 text-cyan-400 flex items-center justify-center hover:bg-cyan-400 hover:text-white hover:-translate-y-1 focus-visible:ring-2 focus-visible:ring-cyan-400 focus-visible:outline-none focus-visible:ring-offset-2 focus-visible:ring-offset-[#0a192f] transition-all duration-300"
               >
                 <FontAwesomeIcon
                   icon={faGithub}
                   className="text-lg sm:text-xl"
+                  aria-hidden="true"
                 />
               </a>
               <a
                 href="https://www.linkedin.com/in/aadi-jain-15462a327/"
                 target="_blank"
                 rel="noreferrer"
-                className="w-10 h-10 sm:w-12 sm:h-12 rounded-2xl bg-white/5 border border-white/10 text-cyan-400 flex items-center justify-center hover:bg-cyan-400 hover:text-white hover:-translate-y-1 transition-all duration-300"
+                aria-label="LinkedIn Profile"
+                className="w-10 h-10 sm:w-12 sm:h-12 rounded-2xl bg-white/5 border border-white/10 text-cyan-400 flex items-center justify-center hover:bg-cyan-400 hover:text-white hover:-translate-y-1 focus-visible:ring-2 focus-visible:ring-cyan-400 focus-visible:outline-none focus-visible:ring-offset-2 focus-visible:ring-offset-[#0a192f] transition-all duration-300"
               >
                 <FontAwesomeIcon
                   icon={faLinkedin}
                   className="text-lg sm:text-xl"
+                  aria-hidden="true"
                 />
               </a>
               <a
                 href="https://monkeytype.com/profile/aadijaiin"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-10 h-10 sm:w-12 sm:h-12 rounded-2xl bg-white/5 border border-white/10 text-cyan-400 flex items-center justify-center hover:bg-cyan-400 hover:text-white hover:-translate-y-1 transition-all duration-300"
+                aria-label="Monkeytype Profile"
+                className="w-10 h-10 sm:w-12 sm:h-12 rounded-2xl bg-white/5 border border-white/10 text-cyan-400 flex items-center justify-center hover:bg-cyan-400 hover:text-white hover:-translate-y-1 focus-visible:ring-2 focus-visible:ring-cyan-400 focus-visible:outline-none focus-visible:ring-offset-2 focus-visible:ring-offset-[#0a192f] transition-all duration-300"
               >
-                <MonkeytypeIcon className="w-5 h-5" />
+                <MonkeytypeIcon className="w-5 h-5" aria-hidden="true" />
               </a>
             </div>
           </div>
