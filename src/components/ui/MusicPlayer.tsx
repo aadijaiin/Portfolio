@@ -79,10 +79,11 @@ export default function MusicPlayer() {
       <div className="flex items-center gap-4 w-full">
         <button
           onClick={togglePlay}
-          className={`shrink-0 transition-colors ${isPlaying ? 'text-cyan-400' : 'text-cyan-400/40 hover:text-cyan-400'}`}
+          className={`shrink-0 transition-colors rounded-full focus-visible:ring-2 focus-visible:ring-cyan-400 focus-visible:outline-none ${isPlaying ? 'text-cyan-400' : 'text-cyan-400/40 hover:text-cyan-400'}`}
           title={isPlaying ? 'Pause' : 'Play'}
+          aria-label={isPlaying ? 'Pause music' : 'Play music'}
         >
-          <FontAwesomeIcon icon={isPlaying ? faPause : faPlay} className="text-xs" />
+          <FontAwesomeIcon icon={isPlaying ? faPause : faPlay} className="text-xs" aria-hidden="true" />
         </button>
         <div
           className="flex-1 h-0.5 bg-white/5 rounded-full cursor-pointer relative overflow-hidden"
@@ -95,10 +96,11 @@ export default function MusicPlayer() {
         </div>
         <button
           onClick={toggleMute}
-          className="shrink-0 text-white/5 hover:text-cyan-400/30 transition-colors"
+          className="shrink-0 text-white/5 hover:text-cyan-400/30 transition-colors rounded-full focus-visible:ring-2 focus-visible:ring-cyan-400 focus-visible:outline-none"
           title={isMuted ? 'Unmute' : 'Mute'}
+          aria-label={isMuted ? 'Unmute music' : 'Mute music'}
         >
-          <FontAwesomeIcon icon={isMuted ? faVolumeMute : faVolumeHigh} className="text-[10px]" />
+          <FontAwesomeIcon icon={isMuted ? faVolumeMute : faVolumeHigh} className="text-[10px]" aria-hidden="true" />
         </button>
       </div>
       {error && (
