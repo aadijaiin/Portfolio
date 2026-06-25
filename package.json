@@ -26,7 +26,6 @@
     "clsx": "^2.1.1",
     "dotenv": "^17.4.2",
     "framer-motion": "^12.38.0",
-    "fs": "^0.0.1-security",
     "lodash": "^4.18.1",
     "lucide-react": "^0.475.0",
     "react": "^19.2.5",
