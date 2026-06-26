@@ -37,7 +37,7 @@ export default function Experience() {
       <div id="experience" className="absolute top-0" />
       <div className="absolute inset-0 pointer-events-none opacity-20 overflow-hidden flex items-center">
         <Parallax speed={-12} className="w-full">
-          <div className="animate-swim w-full relative h-100" style={{ animationDuration: '30s' }}>
+          <div className="animate-swim w-full relative h-100" style={{ animationDuration: '9s' }}>
             <div className="absolute top-1/2 -translate-y-1/2 left-[60%]">
               <img src={fishesImg} className="w-32 md:w-48" alt="Fishes" />
             </div>
