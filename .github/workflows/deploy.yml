@@ -38,6 +38,10 @@ jobs:
 
           git commit -m "chore: update repos"
 
+          echo "===== STATUS BEFORE PULL ====="
+          git status
+          git diff
+
           git pull --rebase origin main
 
           git push
