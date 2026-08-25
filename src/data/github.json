@@ -73,14 +73,14 @@
       "releases_url": "https://api.github.com/repos/aadijaiin/Portfolio/releases{/id}",
       "deployments_url": "https://api.github.com/repos/aadijaiin/Portfolio/deployments",
       "created_at": "2026-04-26T15:48:02Z",
-      "updated_at": "2026-08-23T18:58:03Z",
-      "pushed_at": "2026-08-23T18:57:59Z",
+      "updated_at": "2026-08-24T19:13:14Z",
+      "pushed_at": "2026-08-24T19:10:15Z",
       "git_url": "git://github.com/aadijaiin/Portfolio.git",
       "ssh_url": "git@github.com:aadijaiin/Portfolio.git",
       "clone_url": "https://github.com/aadijaiin/Portfolio.git",
       "svn_url": "https://github.com/aadijaiin/Portfolio",
       "homepage": "https://www.aadijain.dev/",
-      "size": 2888,
+      "size": 2889,
       "stargazers_count": 0,
       "watchers_count": 0,
       "language": "TypeScript",
@@ -2787,5 +2787,5 @@
       "default_branch": "master"
     }
   ],
-  "updatedAt": "2026-08-24T19:10:14.595Z"
+  "updatedAt": "2026-08-25T19:09:18.896Z"
 }
